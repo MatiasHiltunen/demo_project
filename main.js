@@ -1,24 +1,53 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+function createBookElement(building) {
 
-setupCounter(document.querySelector('#counter'))
+  const book = document.createElement('P')
+
+  book.innerText = building
+
+  return book
+
+}
+
+const app = document.querySelector('#app')
+
+const resultContainer = document.createElement('DIV')
+
+const button = document.createElement('BUTTON')
+
+button.innerText = 'Hae kirjat'
+
+button.addEventListener('click', async ()=>{
+
+  const {records} = await searchBook()
+
+  // const records = results.records
+
+  console.log(records[0].buildings[0].translated)
+
+  //const bookElement = createBookElement(records[0].buildings[0].translated)
+
+  const buildings = records.map((record)=>{
+  
+    return record.buildings.map(building => createBookElement(building.translated))
+    
+  })
+  
+  const flatted = buildings.flat()
+  
+  resultContainer.replaceChildren(...flatted)
+})
+
+app.append(button, resultContainer)
+
+async function searchBook(){
+
+  const response = await fetch('https://api.finna.fi/api/v1/search?lookfor=rajapinnat&field%5B%5D=buildings&sort=relevance%2Cid%20asc&page=1&limit=20&prettyPrint=true&lng=fi')
+
+  const data = await response.json()
+
+  return data
+
+}
+
