@@ -11,7 +11,14 @@ export function div(className, ...children){
 
     divElement.className = className
 
-    if(children.length > 1){
+    // Tässä oli pieni bugi, length > 1 tarkoittaa sitä että
+    // ehto ei toteudu jos arrayssa on yksi item, korjauksena length > 0 tai length >= 1.
+
+    // Korjattu vaihtoehtoisen esimerkin vuoksi seuraavalla menetelmällä:
+
+    // 0 on falsy arvo ja arvioituu false:ksi, muut numerot ovat truthyjä
+    // eli arrayn pituuden ollessa suurempi kuin nolla, koodi suorittuu if-blokissa
+    if(children.length){
         // ...children tässä tapauksessa on spread-operaattori
         divElement.append(...children)
     }

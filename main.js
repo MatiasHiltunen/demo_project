@@ -15,7 +15,7 @@ const button = btn('Hae kirjat', async () => {
 
     return record.buildings.map(building => div(
       'result',
-      text("Kirjaston paikkakunta"),
+      text("Kirjasto"),
       text(building.translated),
     ))
 
