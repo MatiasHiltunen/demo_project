@@ -1,0 +1,8 @@
+
+.result {
+    background-color: aqua;
+}
+
+.result:hover {
+    background-color: beige;
+}
