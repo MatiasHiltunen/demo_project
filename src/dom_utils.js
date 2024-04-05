@@ -47,6 +47,27 @@ export function text(text){
     return el
 }
 
+export function input(onInput){
+
+    const el = createElement('INPUT')
+
+    if(onInput){   
+        el.addEventListener('input', (e) => onInput(e.target.value))
+    }
+        
+    return el
+
+}
+
+export function textInput(onInput){
+
+    const el = input(onInput)
+
+    el.setAttribute('type', 'text')
+
+    return el
+}
+
 
 
 
