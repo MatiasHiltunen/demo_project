@@ -1,4 +1,6 @@
-import { button as btn, div, text, textInput } from './src/dom_utils'
+import { styledButton } from './src/components/styled_button'
+import { styledInput, styledNumberInput } from './src/components/styled_input'
+import { button as btn, div, html, style, text, textInput } from './src/dom_utils'
 import { searchBook } from './src/services'
 import './style.css'
 
@@ -11,15 +13,16 @@ const app = document.querySelector('#app')
 
 const resultContainer = div()
 
-const searchField = textInput((value)=>{
+
+const searchField = styledInput((value) => {
   state.searchWord = value
 })
 
-const limitField = textInput((value)=>{
+const limitField = styledNumberInput((value) => {
   state.limit = value
 })
 
-const button = btn('Hae kirjat', async () => {
+const button = styledButton('Hae kirjat', async () => {
 
   console.log(state.searchWord)
 
@@ -33,7 +36,7 @@ const button = btn('Hae kirjat', async () => {
     const buildings = record.buildings.map(building => text(building.translated))
 
     return div(
-      'result', 
+      'result',
       text(record.title),
       div(
         'buildings',
@@ -48,6 +51,6 @@ const button = btn('Hae kirjat', async () => {
   resultContainer.replaceChildren(...flatted)
 })
 
-app.append(searchField, button, limitField, resultContainer)
+app.append( searchField, button, limitField, resultContainer)
 
 

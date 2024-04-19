@@ -68,6 +68,34 @@ export function textInput(onInput){
     return el
 }
 
+export function numberInput(onInput){
 
+    const el = input(onInput)
 
+    el.setAttribute('type', 'number')
+
+    return el
+}
+
+export function style(element, {className, css}){
+
+    if(className){
+        element.className = className
+    }
+
+    if(css) {
+        element.style.cssText = css
+    }
+
+    return element
+}
+
+export function html(htmlCode){
+
+    const template = div()
+
+    template.innerHTML = htmlCode
+
+    return template.children[0]
+}
 
