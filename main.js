@@ -1,3 +1,4 @@
+import { card } from './src/components/card'
 import { styledButton } from './src/components/styled_button'
 import { styledInput, styledNumberInput } from './src/components/styled_input'
 import { button as btn, div, html, style, text, textInput } from './src/dom_utils'
@@ -11,7 +12,7 @@ const state = {
 
 const app = document.querySelector('#app')
 
-const resultContainer = div()
+const resultContainer = div('result-container')
 
 
 const searchField = styledInput((value) => {
@@ -35,15 +36,20 @@ const button = styledButton('Hae kirjat', async () => {
 
     const buildings = record.buildings.map(building => text(building.translated))
 
-    return div(
-      'result',
-      text(record.title),
-      div(
-        'buildings',
-        text("Kirjastot"),
-        ...buildings
-      )
-    )
+    const urls = record.onlineUrls.map(item => {
+      const {url} = item
+
+      return `<p class="title">
+        <strong><a href="${url}" target="_blank"> linkki </a></strong>
+      </p>`
+    })
+
+    return card({
+      title: record.title,
+      description: "testikuvaus",
+      authors: "Testi testi",
+      urls: urls.join('')
+    }) 
   })
 
   const flatted = results.flat()
@@ -51,6 +57,11 @@ const button = styledButton('Hae kirjat', async () => {
   resultContainer.replaceChildren(...flatted)
 })
 
-app.append( searchField, button, limitField, resultContainer)
+app.append(
+  searchField, 
+ /*  limitField,  */
+  button, 
+  resultContainer,
+)
 
 

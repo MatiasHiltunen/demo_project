@@ -2,10 +2,23 @@
 const BASE_URL = 'https://api.finna.fi/api/v1'
 
 export async function searchBook({lookfor, limit}) {
-
+/* buildings
+formats
+id
+imageRights
+images
+languages
+nonPresenterAuthors
+onlineUrls
+presenters
+rating
+series
+subjects
+title
+urls
+year */
     const params = new URLSearchParams({
         lookfor,
-       // 'field[]': 'buildings',
         sort: 'relevance,id asc',
         page: '1',
         limit: limit || '10',
